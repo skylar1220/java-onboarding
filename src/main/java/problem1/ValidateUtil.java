@@ -4,7 +4,6 @@ import java.util.List;
 
 public class ValidateUtil {
 
-    private static final int TWO_PAGE_CRITERION = 2;
     private static final int CONTIOUS_CRITERION = 1;
     private static final int EVEN_CRITERION = 2;
     private static final int EVEN_DIVIDION = 0;
@@ -20,7 +19,6 @@ public class ValidateUtil {
     }
 
     public static void validate(List<Integer> player) {
-        validateTwoPage(player);
         int leftPageNumber = player.get(Player.LEFT_PAGE_INDEX);
         int rightPageNumber = player.get(Player.RIGHT_PAGE_INDEX);
         validateContinuousPage(leftPageNumber, rightPageNumber);
@@ -49,12 +47,7 @@ public class ValidateUtil {
     }
 
     private static void validateEndPage(int leftPageNumber, int rightPageNumber) {
-        if (leftPageNumber < END_PAGE_NUM_LEFT || rightPageNumber < END_PAGE_NUM_RIGHT)
-            throw new IllegalArgumentException(INPUT_EXCEPTION_MESSAGE);
-    }
-
-    public static void validateTwoPage(List<Integer> player) {
-        if (player.size() != TWO_PAGE_CRITERION) {
+        if (leftPageNumber < END_PAGE_NUM_LEFT || rightPageNumber < END_PAGE_NUM_RIGHT) {
             throw new IllegalArgumentException(INPUT_EXCEPTION_MESSAGE);
         }
     }
