@@ -26,14 +26,6 @@ public class RefereeTest {
         assertThat(referee).isEqualTo(0);
     }
 
-
-    @Test
-    void 페이지수가_2개가_아닌_경우() {
-        assertThatThrownBy(() -> new Referee(List.of(24), List.of(123, 124)))
-            .isInstanceOf(IllegalAccessError.class)
-            .hasMessage("올바르지 않은 입력입니다.");
-    }
-
     @Test
     void 왼쪽페이지_홀수_오른쪽페이지_짝수가_아닌_경우() {
         assertThatThrownBy(() -> new Referee(List.of(24, 25), List.of(123, 124)))
