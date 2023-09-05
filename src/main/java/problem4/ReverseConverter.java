@@ -61,9 +61,4 @@ public class ReverseConverter {
     private static char convertAlphabet(char alphabet, int converterIndex) {
         return (char) (alphabet + CONVERTER_NUMBER_LIST.get(converterIndex));
     }
-
-    public static String solution(String word) {
-        String result = loopWordConverter(word);
-        return result;
-    }
 }
