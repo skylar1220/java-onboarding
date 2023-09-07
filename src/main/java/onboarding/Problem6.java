@@ -4,48 +4,23 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import problem6.DuplicationCheck;
 
 public class Problem6 {
     public static List<String> solution(List<List<String>> forms) {
         List<String> answer = List.of("answer");
+        DuplicationCheck duplicationCheck = new DuplicationCheck(forms);
+        duplicationCheck.check();
         return answer;
     }
-
     public static void main(String[] args) {
-
-        List<List<String>> nameList = new ArrayList<>();
-        nameList.add(List.of("jm@email.com", "제이엠"));
-        nameList.add(List.of("jason@email.com", "제이슨"));
-        nameList.add(List.of("jason@email.com", "아아제이슨이야"));
-        nameList.add(List.of("jason@email.com", "이현지"));
-        Set<String> duplicatedNameSet = new HashSet<>();
-        for (int i = 0; i < nameList.size(); i++) {
-            String compareName = nameList.get(i).get(1);
-            if(duplicatedNameSet.contains(compareName)) {
-                continue;
-            }
-            for (int j = 1; j < nameList.size(); j++) {
-                if(i == j){
-                    continue;
-                }
-                String targetName = nameList.get(j).get(1);
-                if(checkContain(targetName, compareName)) {
-                    duplicatedNameSet.add(targetName);
-                    duplicatedNameSet.add(compareName);
-                }
-            }
-        }
-        System.out.println(duplicatedNameSet);
-    }
-
-    private static boolean checkContain(String targetName, String compareName) {
-        String targetPart = "";
-        for (int i = 0; i < targetName.length()-1; i++) {
-            targetPart = targetName.substring(i, i+2);
-            if (compareName.contains(targetPart)){
-                return true;
-            }
-        }
-        return false;
+        List<List<String>> nameList = new ArrayList<>(); // = forms
+        nameList.add(List.of("1jm@email.com", "1제이엠"));
+        nameList.add(List.of("2jason@email.com", "2제이슨"));
+        nameList.add(List.of("3hyeonji@email.com", "3현지야"));
+        nameList.add(List.of("4leehyeonji@email.com", "4이현지"));
+        nameList.add(List.of("5no@email.com", "5아님이"));
+        DuplicationCheck duplicationCheck = new DuplicationCheck(nameList);
+        System.out.println(duplicationCheck.check());
     }
 }
