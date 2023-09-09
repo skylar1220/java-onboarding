@@ -1,5 +1,10 @@
 package problem1;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public enum GameResult {
     POBI_WIN(1), CRONG_WIN(2), DRAW(0);
 
@@ -12,4 +17,5 @@ public enum GameResult {
     public int getResult() {
         return result;
     }
+
 }

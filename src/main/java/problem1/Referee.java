@@ -8,14 +8,14 @@ public class Referee {
     private final Player crong;
 
     public Referee(List<Integer> pobi, List<Integer> crong) {
-        ValidateUtil.validate(pobi, crong);
+        new ValidateUtil().validate(pobi, crong);
         this.pobi = new Player(pobi);
         this.crong = new Player(crong);
     }
 
     public GameResult playGame() {
-        int pobiScore = pobi.calculateTotalScore();
-        int crongScore = pobi.calculateTotalScore();
+        int pobiScore = pobi.getTotalScore();
+        int crongScore = pobi.getTotalScore();
         return playGame(pobiScore, crongScore);
     }
 
