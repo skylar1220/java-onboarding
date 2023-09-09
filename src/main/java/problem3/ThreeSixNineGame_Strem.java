@@ -1,19 +1,26 @@
 package problem3;
 
-public class ThreeSixNineGame {
+import java.util.stream.IntStream;
+
+public class ThreeSixNineGame_Strem {
 
     public final int DIVIDE_CRITERION = 10;
     public final int INIT_VALUE = 0;
-    public final int MULTIPLE_OF_THREE = 3;
+    public final int CLAP_THREE = 3;
+    public final int CLAP_SIX = 6;
+    public final int CLAP_NINE = 9;
 
-    public int playGame(int endNumber) {
+    public int playGame(int EndNumber) {
+        int result = IntStream.range(1, EndNumber+1)
+            .map(this::getCount)
+            .sum();
+        return result;
+    }
+
+    private int getCount(int number) {
         int clapCount = INIT_VALUE;
-
-        for (int i = 0; i < endNumber; i++) {
-            int number = i;
-            if (clapOrNot(number)) {
-                clapCount++;
-            }
+        if (clapOrNot(number)) {
+            clapCount++;
         }
         return clapCount;
     }
@@ -30,10 +37,7 @@ public class ThreeSixNineGame {
     }
 
     private boolean contain369(int number) {
-        if (number == 0) {
-            return false;
-        }
-        if (number % MULTIPLE_OF_THREE == 0) {
+        if (number == CLAP_THREE ||number == CLAP_SIX ||number == CLAP_NINE  ) {
             return true;
         }
         return false;
