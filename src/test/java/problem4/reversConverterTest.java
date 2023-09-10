@@ -8,7 +8,7 @@ public class reversConverterTest {
 
     @Test
     void 단어글자_반복문돌면서_변환하는_기능() {
-        String result = ReverseConverter.loopWordConverter("I love you");
+        String result = new Converter().reverseWord("I love you");
         assertThat(result).isEqualTo("R olev blf");
     }
 
