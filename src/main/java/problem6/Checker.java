@@ -6,67 +6,53 @@ import java.util.List;
 import java.util.Set;
 
 public class Checker {
-
-    private static final Set<Member> DUPLICATED_MEMBER_SET = new HashSet<>();
-    private static final int INIT_INDEX = 0;
-    private static final int TARGET_NAME_LENGTH_MINUS_VALUE = 1;
-    private static final int PART_INDEX_SUBSTRING_VALUE = 2;
-    private final List<Member> memberList;
+    private final List<Member> MEMBER_LIST;
 
     public Checker(List<Member> memberList) {
-        this.memberList = memberList;
+        MEMBER_LIST = memberList;
     }
 
-    public List<Member> getDuplicationMemberList() {
-        int compareIndex = INIT_INDEX;
-        while (compareIndex < memberList.size()) {
-            Member compareMember = memberList.get(compareIndex);
-            if (checkAlredyInSet(compareMember)) {
-                compareIndex++;
-                continue;
+    public List<Member> getDuplicatedList() {
+        Set<Member> resultSet = new HashSet<>();
+        for (Member member : MEMBER_LIST) {
+            if (!containsInSet(member, resultSet)) {
+                resultSet = addToSet(member, resultSet);
             }
-            addOrNotToDuplicationList(compareMember);
-            compareIndex++;
         }
-        List<Member> duplicatedMemberList = new ArrayList<>(DUPLICATED_MEMBER_SET);
-        return duplicatedMemberList;
+        return new ArrayList<>(resultSet);
     }
 
-    private void addOrNotToDuplicationList(Member compareMember) {
-        int targetIndex = INIT_INDEX;
-        while (targetIndex < memberList.size()) {
-            Member targetMember = memberList.get(targetIndex);
-            if (targetMember == compareMember) {
-                targetIndex++;
-                continue;
+    private Set<Member> addToSet(Member member, Set<Member> resultSet) {
+        for (Member compareMember : MEMBER_LIST) {
+            if (!isSameMember(member, compareMember) && containsSamePart(member, compareMember)) {
+                resultSet.add(member);
+                resultSet.add(compareMember);
             }
-            if (containsPart(targetMember, compareMember)) {
-                DUPLICATED_MEMBER_SET.add(targetMember);
-                DUPLICATED_MEMBER_SET.add(compareMember);
-            }
-            targetIndex++;
         }
+        return resultSet;
     }
 
-    private boolean containsPart(Member targetMember, Member compareMember) {
-        String targetName = targetMember.getName();
-        String compareName = compareMember.getName();
-        String targetPart = "";
-        int partIndex = INIT_INDEX;
-        while (partIndex < targetName.length() - TARGET_NAME_LENGTH_MINUS_VALUE) {
-            targetPart = targetName.substring(partIndex, partIndex + PART_INDEX_SUBSTRING_VALUE);
-            if (compareName.contains(targetPart)) {
+    private boolean containsSamePart(Member member, Member compareMember) {
+        for (String split : member.nameSplitList()) {
+            if (compareMember.getName().contains(split)) {
                 return true;
             }
-            partIndex++;
         }
         return false;
     }
 
-    private boolean checkAlredyInSet(Member compareMember) {
-        if (DUPLICATED_MEMBER_SET.contains(compareMember)) {
+    private boolean isSameMember(Member member, Member compareMember) {
+        if (member.getName() == compareMember.getName()) {
             return true;
         }
         return false;
     }
+
+    private boolean containsInSet(Member member, Set<Member> set) {
+        if (set.contains(member)) {
+            return true;
+        }
+        return false;
+    }
+
 }
