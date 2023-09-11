@@ -129,7 +129,7 @@ public class RecommandAlgorithm {
     private void removeZeroScore() {
         int recommandIndex = INIT_INDEX;
         while (recommandIndex < RECOMMAND_LIST.size()) {
-            if (RECOMMAND_LIST.get(recommandIndex).getScore() == ZERO_SCORE) {
+            if (RECOMMAND_LIST.get(recommandIndex).getScore() == 0) {
                 RECOMMAND_LIST.remove(recommandIndex);
             }
             recommandIndex++;
